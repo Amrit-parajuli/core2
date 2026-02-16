@@ -28,11 +28,7 @@ header .container {
     align-items: center;
     flex-wrap: wrap;
 
-<!-- AUDIO -->
-<audio id="sound1" src="media/Few_Clips_of_Mr._K.P._Sharma_Oli,_when_Elected_as_PM,_Nepal_Railway,_Nepal_Waterways,_Gas_Pipeline(256k)_1.mp3"></audio>
-<audio id="sound2" src="media/pani jaj.mp3"></audio>
 
-<script sr
 }
 
 header nav {
@@ -64,6 +60,7 @@ header nav a:hover {
 .hero-content h1 {
     font-size: 48px;
     color: #000;
+    margin-bottom: 15px;
 }
 
 .hero-content p {
@@ -76,6 +73,8 @@ header nav a:hover {
     width: 280px;
     border-radius: 15px;
     box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    max-width: 100%;
+    height: auto;
 }
 
 .logo-btn {
@@ -104,6 +103,20 @@ header nav a:hover {
 #about p {
     font-size: 18px;
     color: #444;
+}
+
+.about-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.about-photo {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 /* ===== EVENTS ===== */
@@ -277,6 +290,84 @@ header nav a:hover {
 
     .logo {
         font-size: 20px;
+    }
+
+    /* Hero mobile */
+    #hero {
+        padding: 60px 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 32px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .profile-img {
+        width: 200px;
+    }
+
+    .logo-btn {
+        width: 100px;
+    }
+
+    /* About mobile */
+    #about {
+        padding: 50px 15px;
+    }
+
+    #about h2 {
+        font-size: 28px;
+    }
+
+    #about p {
+        font-size: 16px;
+    }
+
+    .about-photo {
+        max-width: 250px;
+    }
+
+    /* Events mobile */
+    #events {
+        padding: 50px 15px;
+    }
+
+    .timeline {
+        padding: 30px 0;
+    }
+
+    .timeline-item {
+        padding: 20px 0;
+        width: 100% !important;
+        left: 0% !important;
+    }
+
+    .timeline-content {
+        padding: 15px;
+    }
+
+    .event-title {
+        font-size: 18px;
+    }
+
+    .event-desc {
+        font-size: 14px;
+    }
+
+    /* Contact mobile */
+    #contact {
+        padding: 50px 15px;
+    }
+
+    #contact h2 {
+        font-size: 28px;
+    }
+
+    #contact p {
+        font-size: 16px;
     }
 }
 .full-text {

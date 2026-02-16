@@ -5,22 +5,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const btn = document.getElementById("supportBtn");
     const sound1 = document.getElementById("sound1");
     const sound2 = document.getElementById("sound2");
+    const sound3 = document.getElementById("sound3");
     const swastik = document.getElementById("swastikFlash");
 
     btn.addEventListener("click", function () {
 
         clickCount++;
 
-        /* ---------- SOUND ---------- */
-        sound1.pause();
-        sound2.pause();
-        sound1.currentTime = 0;
-        sound2.currentTime = 0;
+        /* ---------- SOUND (cycle among 3) ---------- */
+        if (sound1) { sound1.pause(); sound1.currentTime = 0; }
+        if (sound2) { sound2.pause(); sound2.currentTime = 0; }
+        if (sound3) { sound3.pause(); sound3.currentTime = 0; }
 
-        if (clickCount % 2 === 1) {
-            sound1.play();
+        const mod = clickCount % 3;
+        if (mod === 1) {
+            if (sound1) sound1.play();
+        } else if (mod === 2) {
+            if (sound2) sound2.play();
         } else {
-            sound2.play();
+            if (sound3) sound3.play();
         }
 
         /* ---------- CONFETTI ---------- */
