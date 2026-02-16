@@ -330,7 +330,7 @@ header nav a:hover {
         max-width: 250px;
     }
 
-    /* Events mobile */
+    /* Events/Timeline mobile */
     #events {
         padding: 50px 15px;
     }
@@ -339,10 +339,21 @@ header nav a:hover {
         padding: 30px 0;
     }
 
+    .timeline::after {
+        left: 15px;
+    }
+
     .timeline-item {
-        padding: 20px 0;
-        width: 100% !important;
-        left: 0% !important;
+        width: 100%;
+        padding-left: 60px;
+        padding-right: 15px;
+        left: 0 !important;
+    }
+
+    .timeline-item.left::after,
+    .timeline-item.right::after {
+        left: 7px;
+        right: auto;
     }
 
     .timeline-content {
@@ -355,6 +366,10 @@ header nav a:hover {
 
     .event-desc {
         font-size: 14px;
+    }
+
+    ul.event-desc li {
+        margin-bottom: 10px;
     }
 
     /* Contact mobile */
