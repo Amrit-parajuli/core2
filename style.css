@@ -1,0 +1,361 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #222;
+}
+
+/* ===== NAVBAR ===== */
+header.navbar {
+    width: 100%;
+    padding: 15px 0;
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+<!-- AUDIO -->
+<audio id="sound1" src="media/Few_Clips_of_Mr._K.P._Sharma_Oli,_when_Elected_as_PM,_Nepal_Railway,_Nepal_Waterways,_Gas_Pipeline(256k)_1.mp3"></audio>
+<audio id="sound2" src="media/pani jaj.mp3"></audio>
+
+<script sr
+}
+
+header nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header nav a {
+    margin-left: 0;
+    text-decoration: none;
+    color: #222;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+header nav a:hover {
+    color: #D00000;
+}
+
+/* ===== HERO ===== */
+#hero {
+    background: linear-gradient(135deg, #fff, #f2f2f2);
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    color: #000;
+}
+
+.hero-content p {
+    font-size: 18px;
+    color: #555;
+    margin: 10px 0 30px;
+}
+
+.profile-img {
+    width: 280px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.logo-btn {
+    width: 140px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.logo-btn:hover {
+    transform: scale(1.1);
+}
+
+/* ===== ABOUT ===== */
+#about {
+    background: #fff;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+#about h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+#about p {
+    font-size: 18px;
+    color: #444;
+}
+
+/* ===== EVENTS ===== */
+#events {
+    background: #f8f8f8;
+    padding: 80px 20px;
+}
+
+.event-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+    gap: 30px;
+}
+
+.event-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    text-align: left;
+}
+
+.event-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.event-card .icon {
+    font-size: 30px;
+    color: #D00000;
+    margin-bottom: 12px;
+}
+.uml-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* UML flag */
+.logo-btn {
+    width: 150px;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    z-index: 1;
+}
+
+/* OVERLAY SWASTIK */
+.swastik-flash {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 45px;   /* smaller size */
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+.timeline {
+    position: relative;
+    max-width: 1100px;
+    margin: auto;
+    padding: 50px 0;
+}
+
+/* Center vertical line */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background: #D00000;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+/* Timeline item */
+.timeline-item {
+    padding: 20px 40px;
+    position: relative;
+    width: 50%;
+}
+
+/* Left side */
+.timeline-item.left {
+    left: 0;
+}
+
+/* Right side */
+.timeline-item.right {
+    left: 50%;
+}
+
+/* Circle connector */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #D00000;
+    border-radius: 50%;
+    top: 30px;
+    right: -9px;
+    z-index: 1;
+}
+
+.timeline-item.right::after {
+    left: -9px;
+}
+
+/* Card design */
+.timeline-content {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    border: 1px solid #eee;
+}
+
+/* Hover animation */
+.timeline-content:hover {
+    transform: translateY(-10px) scale(1.04);
+    box-shadow: 0 20px 45px rgba(208,0,0,0.25);
+    border-color: #D00000;
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+
+    .timeline::after {
+        left: 20px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+
+    .timeline-item.right {
+        left: 0%;
+    }
+
+    .timeline-item::after {
+        left: 11px;
+    }
+}
+
+/* NAVBAR: smaller screens */
+@media screen and (max-width: 600px) {
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    header nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 12px;
+    }
+
+    header nav a {
+        white-space: nowrap;
+        font-size: 16px;
+        padding: 6px 8px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+}
+.full-text {
+    display: none;
+}
+
+.see-more-btn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: #D00000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.see-more-btn:hover {
+    background: #a00000;
+    transform: scale(1.05);
+}
+
+
+
+/* Flash animation */
+@keyframes swastikFlash {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.3) rotate(-20deg);
+    }
+    40% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8) rotate(0deg);
+    }
+}
+
+.swastik-active {
+    animation: swastikFlash 0.6s ease forwards;
+}
+
+.kanda-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.lang-btn {
+    padding: 8px 18px;
+    border: none;
+    background: #D00000;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.lang-btn:hover {
+    background: black;
+}
+
+
+/* ===== CALL TO ACTION ===== */
+#contact {
+    background: #000;
+    color: #fff;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+#contact h2 {
+    font-size: 36px;
+}
+
+#contact p {
+    font-size: 18px;
+}
