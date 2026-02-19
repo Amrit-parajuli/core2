@@ -298,29 +298,25 @@ header nav a:hover {
     }
 
     /* Dashboard mobile */
-    .count-dashboard {
-        right: 10px;
-        left: auto;
-        top: 10px;
-        padding: 6px 12px;
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        z-index: 1001;
-    }
+    /* Dashboard mobile fix */
+.count-dashboard {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 70px;
+    padding: 6px 12px;
+    border-radius: 15px;
+}
 
-    .dashboard-content {
-        gap: 6px;
-    }
-
-    .dashboard-content h3 {
+.dashboard-content h3 {
+    font-size: 10px;
+}
+.dashboard-content h3 {
         font-size: 10px;
-    }
+}
+.count-display {
+    font-size: 18px;
+}
 
-    .count-display {
-        font-size: 18px;
-    }
 
     /* Hero mobile */
     #hero {
@@ -499,8 +495,7 @@ header nav a:hover {
     padding: 8px 16px;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-    z-index: 9999; /* very important */
-    display: flex;
+    z-index: 9999; 
     align-items: center;
     gap: 8px;
     white-space: nowrap;
