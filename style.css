@@ -300,7 +300,7 @@ header nav a:hover {
     /* Dashboard mobile */
     .count-dashboard {
         left: 10px;
-        top: 135px;
+        top: 170px;
         padding: 4px 8px;
         border-radius: 12px;
         gap: 4px;
@@ -486,7 +486,7 @@ header nav a:hover {
 .count-dashboard {
     position: fixed;
     left: 15px;
-    top: 90px;
+    top: 110px;
     background: linear-gradient(135deg, #D00000, #a00000);
     color: white;
     padding: 5px 10px;
