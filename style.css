@@ -427,6 +427,15 @@ header nav a:hover {
     animation: swastikFlash 0.6s ease forwards;
 }
 
+.ca {
+    text-align: center;
+}
+
+.ca + h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 .kanda-header {
     display: flex;
     justify-content: space-between;
@@ -449,6 +458,59 @@ header nav a:hover {
     background: black;
 }
 
+
+/* ===== COUNT DASHBOARD ===== */
+.count-dashboard {
+    position: fixed;
+    left: 20px;
+    top: 80px;
+    background: linear-gradient(135deg, #D00000, #a00000);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 999;
+    min-width: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: slideIn 0.3s ease-out;
+}
+
+.count-dashboard.active {
+    display: flex;
+}
+
+.dashboard-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.dashboard-content h3 {
+    font-size: 12px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.count-display {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 
 /* ===== CALL TO ACTION ===== */
 #contact {

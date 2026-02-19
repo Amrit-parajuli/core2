@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    let clickCount = 0;
+    // Load total clicks from localStorage
+    let clickCount = parseInt(localStorage.getItem("totalClicks")) || 0;
 
     const btn = document.getElementById("supportBtn");
     const sound1 = document.getElementById("sound1");
@@ -8,9 +9,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const sound3 = document.getElementById("sound3");
     const swastik = document.getElementById("swastikFlash");
 
+    const dashboard = document.getElementById("countDashboard");
+    const countNumber = document.getElementById("countNumber");
+
+    // Display the total clicks on page load
+    countNumber.textContent = clickCount;
+
     btn.addEventListener("click", function () {
 
         clickCount++;
+        
+        // Save total clicks to localStorage
+        localStorage.setItem("totalClicks", clickCount);
+        
+        /* ---------- UPDATE DASHBOARD ---------- */
+        countNumber.textContent = clickCount;
 
         /* ---------- SOUND (cycle among 3) ---------- */
         if (sound1) { sound1.pause(); sound1.currentTime = 0; }
