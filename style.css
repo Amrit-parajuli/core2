@@ -492,20 +492,21 @@ header nav a:hover {
 /* ===== COUNT DASHBOARD ===== */
 .count-dashboard {
     position: fixed;
-    left: 20px;
-    top: 80px;
+    left: 15px;
+    top: 90px;
     background: linear-gradient(135deg, #D00000, #a00000);
     color: white;
     padding: 8px 16px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    z-index: 1001;
-    min-width: auto;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    z-index: 9999; /* very important */
     display: flex;
     align-items: center;
     gap: 8px;
-    animation: slideIn 0.3s ease-out;
+    white-space: nowrap;
+    max-width: 90%;
 }
+
 
 .count-dashboard.active {
     display: flex;
