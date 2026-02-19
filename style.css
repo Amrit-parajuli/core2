@@ -299,8 +299,9 @@ header nav a:hover {
 
     /* Dashboard mobile */
     .count-dashboard {
-        left: 10px;
-        top: 65px;
+        right: 10px;
+        left: auto;
+        top: 10px;
         padding: 6px 12px;
         border-radius: 15px;
         display: flex;
