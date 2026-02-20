@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    // Supabase client initialization (replace with your values)
+    const supabaseUrl = "https://olqsmfkirbrkjfrqgtap.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9scXNtZmtpcmJya2pmcnFndGFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE1MDQwMTgsImV4cCI6MjA4NzA4MDAxOH0.MaQKJoDAUEidgGxWP2zACN9PlgLIyoPrd5B6xFyCqzk";
+
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
     // Load total clicks from localStorage
     let clickCount = parseInt(localStorage.getItem("totalClicks")) || 0;
 
@@ -14,6 +20,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Display the total clicks on page load
     countNumber.textContent = clickCount;
+
+    // Supabase counter functions
+    async function loadCounter() {
+        const { data, error } = await supabase
+            .from("counter")
+            .select("count")
+            .eq("id", 1)
+            .single();
+
+        if (!error && data) {
+            clickCount = data.count;
+            countNumber.textContent = data.count;
+            localStorage.setItem("totalClicks", clickCount);
+        }
+    }
+
+    async function increaseCounter() {
+        const { data } = await supabase
+            .from("counter")
+            .select("count")
+            .eq("id", 1)
+            .single();
+
+        let newCount = (data && typeof data.count === 'number') ? data.count + 1 : clickCount + 1;
+
+        await supabase
+            .from("counter")
+            .update({ count: newCount })
+            .eq("id", 1);
+
+        clickCount = newCount;
+        localStorage.setItem("totalClicks", clickCount);
+        countNumber.textContent = newCount;
+    }
+
+    // Load remote counter on start
+    loadCounter();
 
     btn.addEventListener("click", function () {
 
@@ -53,6 +96,9 @@ document.addEventListener("DOMContentLoaded", function () {
         void swastik.offsetWidth;
 
         swastik.classList.add("swastik-active");
+
+        // update server counter (keeps local sound/confetti immediate)
+        increaseCounter();
 
     });
     const langToggle = document.getElementById("langToggle");
@@ -99,6 +145,20 @@ langToggle.addEventListener("click", function () {
 
 
 });
+
+// Realtime subscription to counter updates
+supabase
+    .channel("counter-channel")
+    .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "counter" },
+        payload => {
+            countNumber.textContent = payload.new.count;
+            clickCount = payload.new.count;
+            localStorage.setItem("totalClicks", clickCount);
+        }
+    )
+    .subscribe();
 
 function toggleContent(button) {
     const shortText = button.parentElement.querySelector(".short-text");
