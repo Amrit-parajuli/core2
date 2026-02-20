@@ -22,83 +22,129 @@ document.addEventListener("DOMContentLoaded", function () {
     countNumber.textContent = clickCount;
 
     // Supabase counter functions
-    async function loadCounter() {
-        const { data, error } = await supabase
-            .from("counter")
-            .select("count")
-            .eq("id", 1)
-            .single();
+    let _isUpdatingCounter = false;
 
-        if (!error && data) {
-            clickCount = data.count;
-            countNumber.textContent = data.count;
-            localStorage.setItem("totalClicks", clickCount);
+    async function loadCounter() {
+        try {
+            const { data, error } = await supabase
+                .from("counter")
+                .select("count")
+                .eq("id", 1)
+                .single();
+
+            if (error) {
+                console.error("loadCounter error:", error);
+                return;
+            }
+
+            if (data) {
+                clickCount = data.count;
+                countNumber.textContent = data.count;
+                localStorage.setItem("totalClicks", clickCount);
+            }
+        } catch (err) {
+            console.error("loadCounter unexpected error:", err);
         }
     }
 
     async function increaseCounter() {
-        const { data } = await supabase
-            .from("counter")
-            .select("count")
-            .eq("id", 1)
-            .single();
+        if (_isUpdatingCounter) {
+            console.warn("increaseCounter ignored: update already in progress");
+            return;
+        }
 
-        let newCount = (data && typeof data.count === 'number') ? data.count + 1 : clickCount + 1;
+        _isUpdatingCounter = true;
+        try {
+            const { data, error } = await supabase
+                .from("counter")
+                .select("count")
+                .eq("id", 1)
+                .single();
 
-        await supabase
-            .from("counter")
-            .update({ count: newCount })
-            .eq("id", 1);
+            if (error) {
+                console.error("increaseCounter read error:", error);
+                // fallback: increment local copy
+                clickCount = clickCount + 1;
+                localStorage.setItem("totalClicks", clickCount);
+                countNumber.textContent = clickCount;
+                return;
+            }
 
-        clickCount = newCount;
-        localStorage.setItem("totalClicks", clickCount);
-        countNumber.textContent = newCount;
+            let newCount = (data && typeof data.count === 'number') ? data.count + 1 : clickCount + 1;
+
+            const { error: updateError } = await supabase
+                .from("counter")
+                .update({ count: newCount })
+                .eq("id", 1);
+
+            if (updateError) {
+                console.error("increaseCounter update error:", updateError);
+            } else {
+                clickCount = newCount;
+                localStorage.setItem("totalClicks", clickCount);
+                countNumber.textContent = newCount;
+            }
+        } catch (err) {
+            console.error("increaseCounter unexpected error:", err);
+        } finally {
+            _isUpdatingCounter = false;
+        }
     }
 
     // Load remote counter on start
     loadCounter();
 
-    btn.addEventListener("click", function () {
+    btn.addEventListener("click", async function () {
+        console.log("supportBtn clicked (local)");
 
+        // Immediate local update for responsiveness
         clickCount++;
-        
-        // Save total clicks to localStorage
         localStorage.setItem("totalClicks", clickCount);
-        
-        /* ---------- UPDATE DASHBOARD ---------- */
         countNumber.textContent = clickCount;
 
-        /* ---------- SOUND (cycle among 3) ---------- */
-        if (sound1) { sound1.pause(); sound1.currentTime = 0; }
-        if (sound2) { sound2.pause(); sound2.currentTime = 0; }
-        if (sound3) { sound3.pause(); sound3.currentTime = 0; }
+        // Sound cycle
+        try {
+            if (sound1) { sound1.pause(); sound1.currentTime = 0; }
+            if (sound2) { sound2.pause(); sound2.currentTime = 0; }
+            if (sound3) { sound3.pause(); sound3.currentTime = 0; }
 
-        const mod = clickCount % 3;
-        if (mod === 1) {
-            if (sound1) sound1.play();
-        } else if (mod === 2) {
-            if (sound2) sound2.play();
-        } else {
-            if (sound3) sound3.play();
+            const mod = clickCount % 3;
+            if (mod === 1) {
+                if (sound1) sound1.play();
+            } else if (mod === 2) {
+                if (sound2) sound2.play();
+            } else {
+                if (sound3) sound3.play();
+            }
+        } catch (err) {
+            console.error("sound playback error:", err);
         }
 
-        /* ---------- CONFETTI ---------- */
-        confetti({
-            particleCount: 100,
-            spread: 90,
-            origin: { y: 0.6 }
-        });
+        // Confetti and animation
+        try {
+            confetti({ particleCount: 100, spread: 90, origin: { y: 0.6 } });
+            swastik.classList.remove("swastik-active");
+            void swastik.offsetWidth;
+            swastik.classList.add("swastik-active");
+        } catch (err) {
+            console.error("animation/confetti error:", err);
+        }
 
-        /* ---------- SWASTIK FLASH ---------- */
-        swastik.classList.remove("swastik-active");
+        // Prevent multiple concurrent server requests; show immediate UI and update server in background
+        if (_isUpdatingCounter) {
+            console.warn("Skipping server update; previous update in progress");
+            return;
+        }
 
-        // Force reflow so animation restarts every click
-        void swastik.offsetWidth;
-
-        swastik.classList.add("swastik-active");
-
-        // update server counter (keeps local sound/confetti immediate)
-        increaseCounter();
+        // disable button while updating to avoid rapid double clicks in some environments
+        try {
+            btn.disabled = true;
+            await increaseCounter();
+        } catch (err) {
+            console.error("error during increaseCounter call:", err);
+        } finally {
+            btn.disabled = false;
+        }
 
     });
     const langToggle = document.getElementById("langToggle");
